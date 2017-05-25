@@ -35,30 +35,32 @@
 		</tr>
         <tr>
             <td>Выберите продукт</td>
-            <td>				
-				<input type=radio name='Type' value='Вино' id="vine">  Вино<br>
-				<input type=radio name='Type' value='Игристое вино' id="igrVine">  Игристое вино<br>
-				<input type=radio name='Type' value='Шампанское' id="shamp">  Шампанское<br>
-				<input type=radio name='Type' value='Коньяк' id="konyak">  Коньяк  <br>
+            <td >
+				<div id="product">
+				<input type=radio name='Type' value='vine' >  Вино<br>
+				<input type=radio name='Type' value='igrVine'>  Игристое вино<br>
+				<input type=radio name='Type' value='shamp' >  Шампанское<br>
+				<input type=radio name='Type' value='konyak'>  Коньяк  <br>
 				</div>
 			</td>
 		</tr>
-		<tr>
-            <td>Название</td>
-            <td>
-              <input type=text name='name' style='width:250px; height:20px;'>
-            </td>
-        </tr>
+		
         <tr>
             <td>Количество</td>
             <td>
               <input type=text size=2 id='Kol' style='width:250px; height:20px;'>
 			</td>
-		</tr>            
+		</tr>     
+		<tr>
+            <td>Адрес</td>
+            <td>
+              <input type=text name='name' style='width:250px; height:20px;'>
+            </td>
+        </tr>
         <tr>
             <td>Стоимость заказа</td>
-            <td id="stoim">
-           
+            <td>
+				<input type=text name='name' id="cost" style='width:250px; height:20px;'>
 			</td>
         </tr>
         <tr>
@@ -116,14 +118,26 @@
 		}
 		
 		$('#Kol').on('keyup change', function(){
-		var price=300;
+		var price;
+		var product=$('#product input:checked').val();
 		
+			if (product=="vine"){
+				price=300;
+			}else if(product=="igrVine"){
+				price=250;
+			}else if(product=="shamp"){
+				price=400;
+			}
+			else if(product=="konyak"){
+				price=500;
+			}	
+			
 		var number=parseInt($('#Kol').val());
 		if(isNaN(number)){
 			number=0;
 		}
 		var cost=price*number;		
-		$('#stoim').text(cost+' руб.');		
+		$('#cost').val(cost+' руб.');		
 	});
 	  </script>
 	  
