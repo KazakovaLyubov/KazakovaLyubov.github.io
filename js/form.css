@@ -1,0 +1,39 @@
+ table {
+	   color:white;
+		border-collapse: collapse;
+		font-size:120%;
+	}
+	td {
+		padding: 12px;
+		
+	}
+	tr:nth-child(odd) {
+		background: #B22222;
+		
+	}
+	tr:nth-child(even) {
+		background: #8B0000;
+	}
+   
+   BODY {
+    background:  url(1.jpg); 
+	background-size: 100% auto
+	}
+	
+   div {
+    margin-top: 3%;
+	margin-left: 5%;
+   }
+   .button{
+	font-weight: 700;
+	  color: white;
+	  text-decoration: none;
+	  padding: .5em 1em calc(.5em + 3px);
+	  border-radius: 10px;
+	  background: #CD853F;
+	  box-shadow: 0 -3px #8B4513 inset;
+	  transition: 0.5s;
+   }
+   a{
+	   color:white;
+   }

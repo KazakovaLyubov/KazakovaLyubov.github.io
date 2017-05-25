@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" href="form.css" type="text/css" />
+		<script type = "text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+		
+	</head>
+	<body>
+	
+	<div>
+	<canvas id="canvas" width="200" height="80"></canvas>
+	
+      <table width=535 border=0 >
+        <form action='form.html' method=post>
+		<tr>
+		<td colspan=2 align=center><b>Форма заказа</b></td>
+		</tr>
+		<tr>
+			<td >Фамилия</td>
+			<td>
+			  <input type='text' name='first_name' style='width:250px; height:20px;'>
+			</td>
+		</tr>
+		<tr>
+			<td>Имя</td>
+			<td>
+              <input type=text name='last_name' style='width:250px; height:20px;'> 
+			</td>
+			</tr>   
+		<tr>
+            <td>Номер телефона</td>
+            <td> 
+              <input type='text' name='phone' style='width:250px; height:20px;'>			 		  
+			</td>
+		</tr>
+        <tr>
+            <td>Выберите продукт</td>
+            <td>				
+				<input type=radio name='Type' value='Вино' id="vine">  Вино<br>
+				<input type=radio name='Type' value='Игристое вино' id="igrVine">  Игристое вино<br>
+				<input type=radio name='Type' value='Шампанское' id="shamp">  Шампанское<br>
+				<input type=radio name='Type' value='Коньяк' id="konyak">  Коньяк  <br>
+				</div>
+			</td>
+		</tr>
+		<tr>
+            <td>Название</td>
+            <td>
+              <input type=text name='name' style='width:250px; height:20px;'>
+            </td>
+        </tr>
+        <tr>
+            <td>Количество</td>
+            <td>
+              <input type=text size=2 id='Kol' style='width:250px; height:20px;'>
+			</td>
+		</tr>            
+        <tr>
+            <td>Стоимость заказа</td>
+            <td id="stoim">
+           
+			</td>
+        </tr>
+        <tr>
+            <td colspan=2 align=center> 
+				<INPUT TYPE="submit" NAME="zakazat" VALUE="Заказать" class="button"> 
+				<INPUT TYPE="reset" NAME="Ohistit" VALUE="Очистить"class="button"> </P>
+            </td>
+        </tr>
+        </form>
+      </table>
+	  </div>
+	  
+	  <script type="text/javascript">
+	  
+		var context=document.getElementById('canvas').getContext('2d');
+		var width=100,height=100;
+		var x=0;
+				
+		var cop=loadImage('image.png',16,27,4);
+		
+		setInterval(function(){
+			context.clearRect(0,0,100,100);
+			drawImage(cop,0,1);
+		},200);
+		
+		function drawImage(img,num,speed){
+		
+			num=num?num-1:0;
+			x+=speed? speed:0;
+			
+			if (img.num>=img.count) img.num=1;
+			else img.num+=1;
+			
+			context.drawImage(img.dom,img.width*(img.num-1),0,img.width,img.height,0,0,16*3,27*3);
+		}
+		
+		function loadImage(path,width,height,count){
+			var image=document.createElement('img');
+			
+			var result={
+				dom:image,
+				width:width,
+				height:height,
+				count:count,
+				loaded:false,
+				num:1
+			};
+			
+			image.onload=function(){
+				result.loaded=true;
+			};
+			image.src=path;
+			
+			return result;
+		}
+		
+		$('#Kol').on('keyup change', function(){
+		var price=300;
+		
+		var number=parseInt($('#Kol').val());
+		if(isNaN(number)){
+			number=0;
+		}
+		var cost=price*number;		
+		$('#stoim').text(cost+' руб.');		
+	});
+	  </script>
+	  
+	 </body>
+</html>
+
+
+ 
+  
+  
+   
+  
+  
