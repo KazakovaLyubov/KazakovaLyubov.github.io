@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <html>
 	<head>
 		<link rel="stylesheet" href="form.css" type="text/css" />
@@ -9,7 +8,7 @@
 	
 	<div>
 		<canvas id="canvas" width="200" height="80"></canvas>
-
+	
 		<table width=535 border=0 >
 			<form action='form.html' method=post>
 				<tr>
@@ -24,128 +23,122 @@
 				<tr>
 					<td>Имя</td>
 					<td>
-			      			<input type=text name='last_name' style='width:250px; height:20px;'> 
+					  <input type=text name='last_name' style='width:250px; height:20px;'> 
 					</td>
-				</tr>   
+					</tr>   
 				<tr>
-			   		<td>Номер телефона</td>
-			    		<td> 
-			     	 		<input type='text' name='phone' style='width:250px; height:20px;'>			 		  
+					<td>Номер телефона</td>
+					<td> 
+					  <input type='text' name='phone' style='width:250px; height:20px;'>			 		  
 					</td>
 				</tr>
 				<tr>
-			    		<td>Выберите продукт</td>
-			    		<td >
+					<td>Выберите продукт</td>
+					<td >
 						<div id="product">
-							<input type=radio name='Type' value='vine'  checked>  Вино<br>
-							<input type=radio name='Type' value='igrVine'>  Игристое вино<br>
-							<input type=radio name='Type' value='shamp' >  Шампанское<br>
-							<input type=radio name='Type' value='konyak'>  Коньяк  <br>
+							<label>
+								<input type=radio name='Type' value='vine' checked>  Вино<br>
+							</label>
+							<label>
+								<input type=radio name='Type' value='igrVine'>  Игристое вино<br>
+							</label>
+							<label>
+								<input type=radio name='Type' value='shamp' >  Шампанское<br>
+							</label>
+							<label>
+								<input type=radio name='Type' value='konyak'>  Коньяк  <br>
+							</label>
 						</div>
 					</td>
 				</tr>
-
+				
 				<tr>
 					<td>Количество</td>
 					<td>
-				      		<input type=text size=2 id='Kol' style='width:250px; height:20px;'>
+					  <input type=text size=2 id='Kol' style='width:250px; height:20px;'>
 					</td>
 				</tr>     
 				<tr>
 					<td>Адрес</td>
 					<td>
-					      <input type=text name='name' style='width:250px; height:20px;'>
+					  <input type=text name='name' style='width:250px; height:20px;'>
 					</td>
 				</tr>
 				<tr>
 					<td>Стоимость заказа</td>
 					<td>
-						<input type=text name='name' id="cost" style='width:250px; height:20px;'>
+						<input type=text name='name' id="cost" style='width:250px; height:20px;' placeholder="0 руб.">
 					</td>
 				</tr>
 				<tr>
-			    		<td colspan=2 align=center> 
+					<td colspan=2 align=center> 
 						<INPUT TYPE="submit" NAME="zakazat" VALUE="Заказать" class="button"> 
 						<INPUT TYPE="reset" NAME="Ohistit" VALUE="Очистить"class="button"> </P>
-			    		</td>
+					</td>
 				</tr>
 			</form>
-	      </table>
-	  </div>
+		</table>
+	</div>
 	  
-	  <script type="text/javascript">
-	  
-		var context=document.getElementById('canvas').getContext('2d');
-		var width=100,height=100;
-		var x=0;
+		<script type="text/javascript">	  
+			var context=document.getElementById('canvas').getContext('2d');
+			var width=100,height=100;
+			var x=0;
+					
+			var cop=loadImage('image.png',16,27,4);
+			
+			setInterval(function(){
+				context.clearRect(0,0,100,100);
+				drawImage(cop,0,1);
+			},200);
+			
+			function drawImage(img,num,speed){		
+				num=num?num-1:0;
+				x+=speed? speed:0;			
+				if (img.num>=img.count) img.num=1;
+				else img.num+=1;			
+				context.drawImage(img.dom,img.width*(img.num-1),0,img.width,img.height,0,0,16*3,27*3);
+			}
+			function loadImage(path,width,height,count){
+				var image=document.createElement('img');
 				
-		var cop=loadImage('image.png',16,27,4);
-		
-		setInterval(function(){
-			context.clearRect(0,0,100,100);
-			drawImage(cop,0,1);
-		},200);
-		
-		function drawImage(img,num,speed){
-		
-			num=num?num-1:0;
-			x+=speed? speed:0;
+				var result={
+					dom:image,
+					width:width,
+					height:height,
+					count:count,
+					loaded:false,
+					num:1
+				};
 			
-			if (img.num>=img.count) img.num=1;
-			else img.num+=1;
-			
-			context.drawImage(img.dom,img.width*(img.num-1),0,img.width,img.height,0,0,16*3,27*3);
-		}
-		
-		function loadImage(path,width,height,count){
-			var image=document.createElement('img');
-			
-			var result={
-				dom:image,
-				width:width,
-				height:height,
-				count:count,
-				loaded:false,
-				num:1
+				image.onload=function(){
+					result.loaded=true;
+				};
+				image.src=path;
+				
+				return result;
 			};
-			
-			image.onload=function(){
-				result.loaded=true;
-			};
-			image.src=path;
-			
-			return result;
-		}
-		
-		$('#Kol').on('keyup change', function(){
-		var price;
-		var product=$('#product input:checked').val();		
-		if (product=="vine"){
-			price=300;
-		}else if(product=="igrVine"){
-			price=250;
-		}else if(product=="shamp"){
-			price=400;
-		}
-		else if(product=="konyak"){
-			price=500;
-		}				
-		var number=parseInt($('#Kol').val());
-		if(isNaN(number)){
-			number=0;
-		}
-		var cost=price*number;		
-		$('#cost').val(cost+' руб.');		
-	});
-	  </script>
-	  
-	 </body>
+			var price;
+			var number;
+			$('input').on('keyup change', function(){
+				var product=$('#product input:checked').val();				
+				if (product=="vine"){
+					price=300;
+				}else if(product=="igrVine"){
+					price=250;
+				}else if(product=="shamp"){
+					price=400;
+				}
+				else if(product=="konyak"){
+					price=500;
+				}						
+				number=parseInt($('#Kol').val());
+				if(isNaN(number)){
+					number=0;
+				}								
+				var cost=price*number;
+				$('#cost').val(cost+' руб.');			
+			});
+		</script>	  
+	</body>
 </html>
-
-
- 
-  
-  
-   
-  
-  
